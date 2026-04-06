@@ -1,0 +1,6 @@
+#,Vị trí (dòng/thành phần),Loại vấn đề,Mô tả chi tiết hậu quả
+1,<%! private int count = 0; %>,Race Condition / Thread Safety,"Biến được khai báo trong <%! %> là biến instance của Servlet. Khi nhiều người dùng truy cập cùng lúc, họ sẽ dùng chung một biến count, dẫn đến kết quả đếm sai lệch và không an toàn cho đa luồng."
+2,``,Information Leakage,"Sử dụng HTML Comment cho logic server. Người dùng có thể ""View Source"" trình duyệt để thấy các chú thích về cấu trúc hệ thống, gây rủi ro bảo mật."
+3,<%= student.getName(); %>,Syntax Error,Lỗi cú pháp trong JSP Expression. Cú pháp <%= %> không được phép kết thúc bằng dấu chấm phẩy ;. Điều này sẽ gây lỗi biên dịch JSP.
+4,<%= student.getNote() %>,XSS Vulnerability,"In trực tiếp dữ liệu mà không qua xử lý. Nếu note chứa mã độc (như <script>alert(1)</script>), trình duyệt sẽ thực thi nó, gây nguy hiểm cho người dùng."
+5,Vòng lặp for và if trong <% %>,Spaghetti Code,"Vi phạm nguyên tắc ""Thin View"". Trộn lẫn mã Java vào HTML làm mã nguồn khó đọc, khó bảo trì và các designer không thể chỉnh sửa giao diện nếu không biết Java."
