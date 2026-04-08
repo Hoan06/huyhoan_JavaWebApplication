@@ -2,7 +2,7 @@ package btvn.bai2.repository;
 
 import org.springframework.stereotype.Repository;
 
-@Repository
+@Repository("bai2OrderRepository")
 public class OrderRepository {
     public String getAllOrders() {
         return "Danh sach toan bo don hang (Spring Managed)";

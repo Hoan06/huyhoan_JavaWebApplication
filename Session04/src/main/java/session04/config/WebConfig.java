@@ -10,7 +10,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "session04")
+@ComponentScan(basePackages = {"session04", "btvn"})
 public class WebConfig {
     @Bean
     public ViewResolver viewResolver() {

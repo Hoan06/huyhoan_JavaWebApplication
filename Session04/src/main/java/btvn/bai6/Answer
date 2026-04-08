@@ -1,0 +1,10 @@
+--- Bẫy dữ liệu ---
+Hiện tượng : khi người dùng nhập dữ liệu (ví dụ muốn gõ số 5 nhưng lại gõ nhầm thành chữ t) --> hệ thống sẽ trả về lỗi HTTP 400
+Nguyên nhân : Do spring MVC thực hiện cơ chế ép kiểu tự động , không thể từ chữ sang số --> ném ra ngoại lệ của chương trình
+
+----- Luồng an toàn ----
+- DELETE :
+- Khi người dùng lag bấm 3 lần : Lần 1 xóa thành công , lần 2 và 3 hệ thống kiểm tra thấy xóa rồi nên sẽ bỏ qua ,
+ trạng thái nó sẽ không thay đổi
+ - POST:
+ - Khi ấn tạo đơn hàng : ấn 3 lần -> hệ thống sinh ra 3 đơn hàng mới ( 3 cái id nó khác nhau ) nhưng sẽ post cùng 1 nội dung

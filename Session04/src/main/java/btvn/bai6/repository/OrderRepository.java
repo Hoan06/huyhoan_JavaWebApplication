@@ -2,7 +2,7 @@ package btvn.bai6.repository;
 
 import org.springframework.stereotype.Repository;
 
-@Repository
+@Repository("bai6OrderRepository")
 public class OrderRepository {
     public String findById(Long id) {
         return "Thông tin chi tiết của đơn hàng #" + id;
