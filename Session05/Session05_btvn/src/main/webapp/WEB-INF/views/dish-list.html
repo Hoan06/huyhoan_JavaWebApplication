@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dish List</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<h3 th:if="${list == null or list.isEmpty()}" th:text="${check}"></h3>
+
+<table th:if="${list != null and !list.isEmpty()}">
+    <tr>
+        <th>ID</th>
+        <th>Tên món</th>
+        <th>Giá</th>
+        <th>Trạng thái</th>
+        <th>Chỉnh sửa</th>
+    </tr>
+
+    <tr th:each="dish : ${list}">
+        <td th:text="${dish.id}"></td>
+        <td th:text="${dish.name}"></td>
+        <td th:text="${dish.price}"></td>
+        <td th:text="${dish.available ? 'Còn hàng' : 'Hết hàng'}"
+            th:style="${dish.available} ? '' : 'color:red'">
+        </td>
+        <td>
+            <a th:href="@{|/bai3/edit/${dish.id}|}">Chỉnh sửa</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

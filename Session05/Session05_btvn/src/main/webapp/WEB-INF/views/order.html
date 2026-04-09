@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main-layout}">
+
+<head>
+    <title>Đặt món nhanh</title>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+
+    <h2>Đặt món nhanh</h2>
+
+    <table border="1">
+        <tr>
+            <th>Tên món</th>
+            <th>Giá</th>
+        </tr>
+
+        <tr>
+            <td>Cơm rang</td>
+            <td>50000</td>
+        </tr>
+
+        <tr th:each="d : ${dishes}">
+            <td th:text="${d.name}">Tên món</td>
+            <td th:text="${d.price}">0</td>
+        </tr>
+
+    </table>
+
+    <h3>Tổng tiền: <span th:text="${total}">150000</span></h3>
+
+</div>
+
+</body>
+</html>

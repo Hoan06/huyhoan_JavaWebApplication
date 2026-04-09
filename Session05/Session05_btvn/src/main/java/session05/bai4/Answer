@@ -1,0 +1,22 @@
+ So sánh 2 cách tiếp cận
+ (A) Copy-Paste Header/Footer
+ Tái sử dụng: Không có → phải lặp lại code ở nhiều file
+ Bảo trì: Khó → sửa 1 chỗ phải sửa tất cả các trang
+ Độ sạch code: Code dài, rối, khó đọc
+ Khả năng mở rộng: Kém → thêm trang mới phải copy tiếp
+ Hiệu suất phát triển: Chậm về lâu dài
+ (B) Layout Dialect (layout:decorate)
+ Tái sử dụng: Cao → dùng chung 1 layout
+ Bảo trì: Dễ → chỉ cần sửa layout là áp dụng cho toàn hệ thống
+ Độ sạch code: Gọn gàng, rõ ràng, tách biệt layout và nội dung
+ Khả năng mở rộng: Tốt → thêm trang mới rất nhanh
+ Hiệu suất phát triển: Nhanh hơn về lâu dài
+
+
+ Lí do phải đăng ký LayoutDialect trong Spring :
+  Vì Thymeleaf mặc định không hiểu layout:*
+  Nếu không đăng ký :
+  sẽ bị lỗi kiểu:
+ Không nhận layout:decorate
+ Không render layout
+ Trang hiển thị sai hoặc trắng

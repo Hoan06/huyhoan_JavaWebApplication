@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Danh sách dự án</title>
+</head>
+<body>
+
+<h2>Danh sách dự án</h2>
+<p th:if="${error}" th:text="${error}" style="color: red;"></p>
+
+<table border="1">
+    <tr>
+        <th>Mã</th>
+        <th>Tên</th>
+        <th>Manager</th>
+        <th>Chi tiết</th>
+    </tr>
+
+    <tr th:each="p : ${projects}">
+        <td th:text="${p.id}"></td>
+        <td th:text="${p.name}"></td>
+        <td th:text="${p.manager}"></td>
+        <td>
+            <a th:href="@{/projects/{id}(id=${p.id})}">Xem</a>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
