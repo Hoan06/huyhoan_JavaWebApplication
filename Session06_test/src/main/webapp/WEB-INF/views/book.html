@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{main-layout}">
+<head>
+  <title>Dish List</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+
+
+    <main layout:fragment="content">
+      <div class="container">
+      <table class="table table-bordered table-striped">
+        <tr>
+          <th>ID</th>
+          <th>Tên sách</th>
+          <th>Tên tác giả</th>
+          <th>Giá bán</th>
+          <th>Chi tiết</th>
+        </tr>
+
+        <tr th:each="book : ${books}">
+          <td th:text="${book.id}"></td>
+          <td th:text="${book.bookName}"></td>
+          <td th:text="${book.author}"></td>
+          <td th:if="${book.price >= 300000}" th:text="${book.price}" style="color: yellow"></td>
+          <td th:if="${book.price < 300000}" th:text="${book.price}"></td>
+          <td>
+            <a th:href="@{/bookDetail/{id}(id=${book.id})}">Xem chi tiết</a>
+          </td>
+        </tr>
+      </table>
+      </div>
+    </main>
+</body>
+</html>
