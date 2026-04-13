@@ -1,0 +1,14 @@
+Phần 1: Phân tích logic
+1. Nguyên tắc lập trình bị vi phạm
+Đoạn code trên đang vi phạm nghiêm trọng nguyên tắc DRY (Don't Repeat Yourself) - Đừng lặp lại chính mình.
+
+Trong lập trình phần mềm, nguyên tắc này khuyến khích việc biểu diễn mọi đơn vị tri thức (logic, dữ liệu) duy nhất một lần trong hệ thống. Khi bạn copy-paste cùng một đoạn logic lấy danh sách categories vào nhiều phương thức, bạn đang tạo ra "mã nguồn rác" (boilerplate code).
+
+2. Rủi ro bảo trì khi hệ thống mở rộng (Ví dụ lên 20 trang)
+Nếu nhà hàng mở rộng và bạn tiếp tục lặp lại đoạn code này, các rủi ro lớn sẽ phát sinh:
+
+Khó thay đổi (Rigidity): Giả sử nhà hàng muốn thêm nhóm "Món đặc biệt" hoặc đổi tên "Đồ uống" thành "Nước giải khát". Bạn sẽ phải đi tìm và sửa thủ công tại 20 địa điểm khác nhau. Chỉ cần quên 1 chỗ, dữ liệu trên giao diện sẽ bị bất đồng nhất.
+
+Dễ sai sót (Fragility): Việc chỉnh sửa thủ công ở quá nhiều nơi rất dễ dẫn đến lỗi gõ máy (typo) hoặc xóa nhầm các đoạn code xung quanh.
+
+Controller phình to (Bloat): Controller thay vì tập trung xử lý điều hướng (navigation) thì lại phải gánh thêm quá nhiều logic khởi tạo dữ liệu tĩnh, làm code trở nên khó đọc và khó Unit Test.

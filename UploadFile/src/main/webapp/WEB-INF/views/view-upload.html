@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>View</title>
 </head>
 <body>
-$END$
+
+<h3>Uploaded Image:</h3>
+
+<img th:src="@{'/uploads/' + ${fileName}}" width="300"/>
+
 </body>
 </html>
