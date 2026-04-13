@@ -1,0 +1,16 @@
+Phần 1: Phân tích logic lỗi
+1. Tại sao "Tên cửa hàng" bị null
+Cơ chế Data Binding của Spring hoạt động dựa trên việc so khớp tên thuộc tính (attribute name).
+
+Trong class RestaurantProfile, thuộc tính được khai báo là: private String name;.
+
+Tuy nhiên, trong file HTML, thẻ input lại đặt name là: name="restaurantName".
+
+Vì name và restaurantName không trùng khớp nhau, Spring không thể tìm thấy setter tương ứng để đổ dữ liệu vào đối tượng, dẫn đến việc profile.getName() trả về null.
+
+2. Tại sao ô checkbox active hoạt động không đúng
+Có hai lỗi chính ở đây:
+
+Giá trị không khớp kiểu dữ liệu: Trong POJO, active là kiểu boolean (đợi giá trị true/false). Nhưng trong HTML, bạn Fresher đang để value="MỞ_CỬA". Spring sẽ gặp khó khăn khi ép kiểu (parse) một chuỗi text không định dạng chuẩn về kiểu boolean.
+
+Logic Checkbox của HTML thuần: Với HTML thuần, nếu một checkbox không được tích, trình duyệt sẽ không gửi field đó lên server. Nếu Spring không thấy field này, nó có thể giữ nguyên giá trị mặc định hoặc gây ra lỗi logic nếu không được xử lý "default value".
