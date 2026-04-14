@@ -1,10 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-$END$
+
+    <div class="container">
+        <h1>Thêm mới sinh viên</h1>
+        <form th:action="@{/students/add}" th:object="${studentDTO}" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="stuId">Mã sinh viên : </label>
+                <input class="form-control" type="text" id="stuId" th:field="*{stuId}">
+            </div>
+            <div class="form-group">
+                <label for="fullName">Họ tên : </label>
+                <input class="form-control" type="text" id="fullName" th:field="*{fullName}">
+            </div>
+            <div class="form-group">
+                <label for="className">Lớp học : </label>
+                <input class="form-control" type="text" id="className" th:field="*{className}">
+            </div>
+            <div class="form-group">
+                <label for="stuImage">Ảnh sinh viên : </label>
+<!--Thêm multiple vào chỗ input image để cho thêm nhiều ảnh nhưng sửa trong dto cái stuImage là 1 list mới đc-->
+                <input class="form-control" type="file" id="stuImage" th:field="*{stuImage}">
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Thêm mới">
+                <input type="reset" class="btn btn-secondary" value="Làm lại">
+            </div>
+        </form>
+    </div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 </html>

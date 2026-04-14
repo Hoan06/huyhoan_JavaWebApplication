@@ -1,0 +1,4 @@
+- Lọt khoảng trắng vào Database là vì sử dụng @Notnull nó chỉ kiểm tra có null hay không thôi
+nó không kiểm tra khoảng trắng và rỗng
+- Không chặn được request từ Postman gây lỗi 500 là vì chưa có tham số @Valid trong phương thức
+post

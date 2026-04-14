@@ -5,9 +5,11 @@ import jakarta.servlet.ServletRegistration;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class WebInit extends AbstractAnnotationConfigDispatcherServletInitializer {
-    private static final long MAX_FILE_SIZE = 5 * 1024 * 1024;
-    private static final long MAX_REQUEST_SIZE = 10 * 1024 * 1024;
-    private static final int FILE_SIZE_THRESHOLD = 1024 * 1024;
+    private final Long MAX_FILE_SIZE = 20*1024*1024L; // Tối đa file upload là 20 mb
+    private final Long MAX_REQUEST_SIZE = 100*1024*1024L; // Tối đa trong 1 lần up là 5 file ( 20 * 5 = 100 )
+    private final String TMP_LOCATION = ""; // Xử lý đường dẫn tuyệt đối ( đặt rỗng là tự xử lí lấy )
+    private final Integer FILE_SIZE_THRESHOLD = 0; // Đặt 0 là không giới hạn kích thước upload lên
+
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
@@ -26,13 +28,6 @@ public class WebInit extends AbstractAnnotationConfigDispatcherServletInitialize
 
     @Override
     protected void customizeRegistration(ServletRegistration.Dynamic registration) {
-        registration.setMultipartConfig(
-                new MultipartConfigElement(
-                        null,
-                        MAX_FILE_SIZE,
-                        MAX_REQUEST_SIZE,
-                        FILE_SIZE_THRESHOLD
-                )
-        );
+        registration.setMultipartConfig(new MultipartConfigElement(TMP_LOCATION , MAX_FILE_SIZE , MAX_REQUEST_SIZE, FILE_SIZE_THRESHOLD));
     }
 }

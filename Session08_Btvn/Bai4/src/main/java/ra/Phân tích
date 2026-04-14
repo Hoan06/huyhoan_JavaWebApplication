@@ -1,0 +1,40 @@
+1. Xác định I/O (Input/Output)
+Input: UserRegistrationDto chứa username, password, và confirmPassword.
+
+Output: * Hợp lệ: Chuyển sang bước mã hóa mật khẩu và lưu database.
+
+Không hợp lệ: Trả về lỗi Validation (ví dụ: "Mật khẩu xác nhận không khớp").
+
+2. Hai giải pháp kỹ thuật
+Giải pháp 1: Xử lý tại Controller/Service (Thủ công)
+Sử dụng lệnh if (!dto.getPassword().equals(dto.getConfirmPassword())) ngay sau khi nhận request.
+
+Ưu điểm: Nhanh, dễ hiểu cho người mới.
+
+Nhược điểm: Code bị lặp lại nếu có thêm tính năng "Đổi mật khẩu", làm "bẩn" logic nghiệp vụ chính của Service.
+
+Giải pháp 2: Custom Class-Level Annotation (Khuyên dùng)
+Tạo một Annotation như @PasswordMatches đặt trên đầu Class DTO.
+Logic so sánh sẽ được đóng gói trong một Validator riêng. Spring Bean Validation sẽ tự động kích hoạt khi có @Valid.
+
+Dưới đây là so sánh ngắn gọn giữa 2 giải pháp:
+
+1. Giải pháp 1: Kiểm tra thủ công (if-else tại Controller)
+Boilerplate code: Nhiều. Phải viết lại logic if-else ở mọi nơi có tính năng nhập mật khẩu.
+
+Tái sử dụng: Kém. Logic bị "đóng băng" trong một phương thức cụ thể, không dùng lại cho các Form khác được.
+
+Separation of Concerns: Vi phạm. Làm rối logic nghiệp vụ của Controller/Service bằng việc kiểm tra định dạng dữ liệu.
+
+Độ an toàn: Thấp. Dễ sót lỗi NullPointerException nếu quên check null thủ công.
+
+2. Giải pháp 2: Class-Level Annotation (Khuyên dùng)
+Boilerplate code: Rất ít. Chỉ cần khai báo @Valid ở Controller, code cực kỳ gọn.
+
+Tái sử dụng: Cao. Chỉ cần gắn Annotation @PasswordMatches lên bất kỳ DTO nào là xong.
+
+Separation of Concerns: Tốt. Tách biệt hoàn toàn logic kiểm tra dữ liệu ra khỏi logic xử lý nghiệp vụ.
+
+Độ an toàn: Cao. Xử lý bẫy null tập trung tại một chỗ, giúp hệ thống chạy ổn định và chuyên nghiệp.
+
+=> Chọn Giải pháp 2 để tối ưu code và dễ bảo trì.

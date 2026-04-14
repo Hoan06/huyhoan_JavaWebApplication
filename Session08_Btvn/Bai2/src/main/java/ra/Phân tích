@@ -1,0 +1,9 @@
+Phần 1: Phân tích nguyên nhân
+Lý do hệ thống quăng lỗi 400 Bad Request thay vì nhảy vào khối if (bindingResult.hasErrors()) là do thứ tự đặt tham số trong Method Signature của Controller.
+
+Trong Spring MVC, đối tượng BindingResult (hoặc Errors) bắt buộc phải đứng ngay sau đối tượng được validate (đối tượng có đánh dấu @Valid hoặc @Validated).
+
+Lỗi trong code của bạn: Bạn đang đặt Model model xen giữa EmployeeDto employee và BindingResult bindingResult.
+
+Hậu quả: Khi Spring thực hiện validate và thấy có lỗi, nó tìm kiếm một BindingResult ngay kế tiếp để ghi nhận lỗi. Do không thấy (vì gặp Model trước), Spring sẽ coi như không có cơ chế xử lý lỗi thủ công
+ và lập tức ném ra ngoại lệ MethodArgumentNotValidException, dẫn đến trang trắng 400 Bad Request.

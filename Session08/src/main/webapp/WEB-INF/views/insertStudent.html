@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Thêm mới sinh viên</h1>
+        <form th:action="@{/students/add}" th:object="${student}" method="post">
+            <div class="form-group">
+                <label for="stuId">Mã sinh viên</label>
+                <input type="text" class="form-control" id="stuId" th:field="*{stuId}">
+                <small class="text-danger" th:if="${#fields.hasErrors('stuId')}" th:errors="*{stuId}"></small>
+            </div>
+            <div class="form-group">
+                <label for="fullName">Họ tên</label>
+                <input type="text" class="form-control" id="fullName" th:field="*{fullName}">
+                <small class="text-danger" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></small>
+            </div>
+            <div class="form-group">
+                <label for="male">Giới tính</label>
+                <input type="radio" th:field="*{gender}" id="male" value="true" required>Nam
+                <input type="radio" th:field="*{gender}" id="female" value="false">Nữ
+                <small class="text-danger" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></small>
+            </div>
+            <div class="form-group">
+                <label for="birthday">Ngày sinh</label>
+                <input type="date" class="form-control" id="birthday" th:field="*{birthday}">
+                <small class="text-danger" th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}"></small>
+            </div>
+            <div class="form-group">
+                <label for="address">Quê quán</label>
+                <input type="text" class="form-control" id="address" th:field="*{address}">
+                <small class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></small>
+            </div>
+            <div class="form-group">
+                <label for="className">Lớp học</label>
+                <select class="form-control" id="className" th:field="*{className}">
+                    <option value="">------Hãy chọn------</option>
+                    <option value="CNTT1">CNTT1</option>
+                    <option value="CNTT2">CNTT2</option>
+                    <option value="CNTT3">CNTT3</option>
+                    <option value="CNTT4">CNTT4</option>
+                </select>
+                <small class="text-danger" th:if="${#fields.hasErrors('className')}" th:errors="*{className}"></small>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">Thêm mới</button>
+                <button type="reset" class="btn">Làm lại</button>
+            </div>
+        </form>
+
+    </div>
+
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

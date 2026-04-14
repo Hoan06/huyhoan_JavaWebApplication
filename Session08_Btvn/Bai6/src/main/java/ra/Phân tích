@@ -1,0 +1,16 @@
+Phần 1: Tư duy giải pháp
+1. Lí do lọt dữ liệu khi dùng Postman :
+JavaScript ở Frontend chỉ là lớp bảo vệ phía Client.
+Khi hacker hoặc đối thủ dùng Postman, họ gửi Request HTTP trực tiếp tới Server,
+ hoàn toàn bỏ qua trình duyệt và các đoạn mã JS kiểm tra. Nếu Backend không có cơ chế Validation,
+ nó sẽ mặc nhiên chấp nhận mọi dữ liệu "độc hại" gửi tới.
+
+2. Lựa chọn Annotation cho patientName
+Để giải quyết Bẫy 1 (Chỉ chứa khoảng trắng), tôi chọn @NotBlank.
+
+@NotNull: Chỉ chặn null, nhưng chấp nhận chuỗi rỗng "" và khoảng trắng " ".
+
+@NotEmpty: Chặn null và chuỗi rỗng "", nhưng vẫn chấp nhận " " (vì độ dài chuỗi là 3).
+
+@NotBlank: Là lựa chọn an toàn nhất. Nó kiểm tra chuỗi không được null,
+độ dài phải lớn hơn 0 sau khi đã loại bỏ (trim) các khoảng trắng.

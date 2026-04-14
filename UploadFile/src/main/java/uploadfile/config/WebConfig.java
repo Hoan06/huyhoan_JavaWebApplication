@@ -3,6 +3,7 @@ package uploadfile.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -14,7 +15,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("uploadfile")
+@ComponentScan(basePackages = "uploadfile")
 public class WebConfig implements WebMvcConfigurer {
 
     @Bean
@@ -38,19 +39,19 @@ public class WebConfig implements WebMvcConfigurer {
     public ThymeleafViewResolver thymeleafViewResolver() {
         ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
         viewResolver.setTemplateEngine(springTemplateEngine());
+        viewResolver.setCharacterEncoding("UTF-8");
         return viewResolver;
     }
 
-    @Bean
-    public StandardServletMultipartResolver multipartResolver() {
-        return new StandardServletMultipartResolver();
-    }
+    // Cấu hình đường dẫn resources
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        String path = System.getProperty("user.dir") + "/uploads/";
+        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+    }
 
-        registry.addResourceHandler("/uploads/**")
-                .addResourceLocations("file:" + path);
+    @Bean
+    public MultipartResolver multipartResolver() {
+        return new StandardServletMultipartResolver();
     }
 }
