@@ -1,0 +1,25 @@
+Phần 1: Báo cáo phân tích và Thiết kế giải pháp
+1. Xác định I/O (Input/Output)
+Input: withdrawAmount (Long/Integer) gửi qua Request Body từ Client.
+
+Output: * Success: HTTP 200 OK, logic rút tiền được thực thi.
+
+Failure: HTTP 400 Bad Request kèm thông báo lỗi chi tiết (ví dụ: "Số tiền phải là bội số của 10,000 VNĐ").
+
+2. Phương án thiết kế
+Thay vì viết logic kiểm tra trong Controller gây "phình to" mã nguồn và
+vi phạm nguyên lý Single Responsibility (SRP), ta sẽ dùng ConstraintValidator.
+
+Custom Annotation: @MultipleOfTenThousand
+
+Target: Áp dụng trên các trường (fields).
+
+Retention: Tồn tại trong thời gian Runtime để Validation engine có thể quét.
+3. Mã giả:
+IF value IS NULL:
+    RETURN TRUE (Hợp lệ - để @NotNull xử lý riêng, tránh chồng chéo trách nhiệm)
+IF value < 50000:
+    RETURN FALSE (Vi phạm ngưỡng tối thiểu)
+IF value % 10000 != 0:
+    RETURN FALSE (Vi phạm quy tắc bội số)
+RETURN TRUE
