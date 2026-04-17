@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thêm công việc mới</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+</head>
+<body>
+
+<div class="container">
+        <h2 class="text-center">Thêm Công Việc</h2>
+
+        <form th:action="@{/job/add}" th:object="${taskItem}" method="post">
+
+            <div class="form-group">
+                <label>Mã công việc (ID):</label>
+                <input type="text" th:field="*{id}" class="form-control" placeholder="Nhập ID (VD: I01)"/>
+                <span class="error" th:if="${#fields.hasErrors('id')}" th:errors="*{id}" style="color: red"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Tên công việc:</label>
+                <input type="text" th:field="*{title}" class="form-control" placeholder="Nhập tên công việc"/>
+                <span class="error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color: red"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Hạn chót (Deadline):</label>
+                <input type="date" th:field="*{deadline}" class="form-control"/>
+                <small class="form-text text-muted">Định dạng: yyyy/MM/dd</small>
+                <span class="error" th:if="${#fields.hasErrors('deadline')}" th:errors="*{deadline}" style="color: red"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Mức độ ưu tiên:</label>
+                <select th:field="*{priority}" class="form-control">
+                    <option value="">-- Chọn mức độ --</option>
+                    <option th:each="p : ${T(ra.model.entity.TaskItemEnum).values()}"
+                            th:value="${p}"
+                            th:text="${p}">
+                    </option>
+                </select>
+                <span class="error" th:if="${#fields.hasErrors('priority')}" th:errors="*{priority}" style="color: red"></span>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Lưu công việc</button>
+                <a href="/job/add" class="btn btn-secondary">Quay lại</a>
+            </div>
+        </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

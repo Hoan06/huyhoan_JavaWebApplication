@@ -11,6 +11,9 @@ public class MedCodeValidator implements ConstraintValidator<MedCode, String> {
         if (value == null) {
             return true;
         }
+        if (value.length() < 5) {
+            return true;
+        }
         return value.startsWith("MED_");
     }
 }

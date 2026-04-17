@@ -2,6 +2,7 @@ package ra.model.dto;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import ra.custome_validator.MedCode;
 
@@ -10,9 +11,10 @@ public class BookingDto {
     private String patientName;
 
     @Min(value = 0, message = "Tuổi phải từ 0 trở lên")
+    @NotNull(message = "Tuổi không được để trống")
     private Integer age;
 
-    @NotNull(message = "Mã khoa không được để trống")
+    @NotBlank(message = "Mã khoa không được để trống")
     @MedCode
     private String departmentCode;
 
