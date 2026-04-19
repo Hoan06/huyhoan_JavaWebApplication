@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Danh sách nhân sự</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+
+        <div class="container">
+            <a th:href="@{/add}">Thêm mới nhân sự</a>
+            <h2 class="text-center">Danh sách nhân sự</h2>
+            <form th:action="@{/search}" method="get">
+                <div class="text-center">
+                    <input name="keyword" type="text" >
+                    <select name="position">
+                        <option value="">---Chọn vị trí---</option>
+                        <option th:each="p : ${positions}" th:text="${p}" th:value="${p}"></option>
+                    </select>
+                    <button type="submit">Tìm kiếm</button>
+                </div>
+            </form>
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th>Mã nhân sự</th>
+                    <th>Tên nhân sự</th>
+                    <th>Vị trí</th>
+                    <th>Số năm kinh nghiệm</th>
+                    <th>Ảnh</th>
+                    <th>Email</th>
+                    <th>Hành động</th>
+                </tr>
+                <tr th:each="p : ${projects}">
+                    <td th:text="${p.id}"></td>
+                    <td th:text="${p.fullName}"></td>
+                    <td th:text="${p.position}"></td>
+                    <td th:text="${p.experienceYears}"></td>
+                    <td>
+                        <img th:src="@{|/resources/images/${p.getAvatar()}|}" style="width: 50px" alt="No img">
+                    </td>
+                    <td th:text="${p.email}"></td>
+                    <td>
+                        <a th:href="@{/update/{id}(id=${p.id})}">Cập nhật</a>
+                        <a th:href="@{/delete/{id}(id=${p.id})}"
+                           onclick="return confirm('Bạn có chắc chắn muốn xóa không ?')">Xóa</a>
+                    </td>
+                </tr>
+            </table>
+            <h4 th:if="${projects.isEmpty()}">Hiện chưa có nhân sự nào được phân bổ cho dự án này.</h4>
+        </div>
+
+</body>
+</html>
