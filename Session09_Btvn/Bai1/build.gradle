@@ -26,7 +26,6 @@ dependencies {
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
-
     // Source: https://mvnrepository.com/artifact/org.springframework/spring-webmvc
     implementation("org.springframework:spring-webmvc:7.0.6")
 // Source: https://mvnrepository.com/artifact/org.thymeleaf/thymeleaf-spring6
@@ -35,6 +34,7 @@ dependencies {
     implementation("jakarta.validation:jakarta.validation-api:4.0.0-M1")
 // Source: https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator
     implementation("org.hibernate.validator:hibernate-validator:9.1.0.Final")
+
 }
 
 test {
