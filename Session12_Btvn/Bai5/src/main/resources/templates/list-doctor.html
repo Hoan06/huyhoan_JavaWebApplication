@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách bác sĩ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+            background: #f4f6f9;
+        }
+        h1 {
+            color: #0b5394;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .search-form {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        input, button, a {
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+        input {
+            border: 1px solid #ccc;
+        }
+        button {
+            background: #0b5394;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .add-btn, .edit-btn {
+            text-decoration: none;
+            color: white;
+            background: #198754;
+            display: inline-block;
+        }
+        .edit-btn {
+            background: #f0ad4e;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background: #0b5394;
+            color: white;
+        }
+        img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .config-box {
+            margin-bottom: 20px;
+            padding: 12px;
+            background: #eaf3ff;
+            border-left: 4px solid #0b5394;
+        }
+    </style>
+</head>
+<body>
+<h1>Quản lý danh sách bác sĩ</h1>
+
+<div class="config-box">
+    <strong>Port:</strong> <span th:text="${appPort}"></span> |
+    <strong>Context Path:</strong> <span th:text="${appContextPath}"></span>
+</div>
+
+<div class="top-bar">
+    <a class="add-btn" th:href="@{/doctors/add}">Thêm bác sĩ</a>
+
+    <form class="search-form" th:action="@{/doctors/search}" method="get">
+        <input type="text" name="phone" placeholder="Nhập số điện thoại" th:value="${keyword}">
+        <button type="submit">Tìm kiếm</button>
+        <a th:href="@{/doctors}">Xem tất cả</a>
+    </form>
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th>Mã</th>
+        <th>Ảnh</th>
+        <th>Tên bác sĩ</th>
+        <th>Chuyên khoa</th>
+        <th>Năm KN</th>
+        <th>SĐT</th>
+        <th>Địa chỉ</th>
+        <th>Ngày vào làm</th>
+        <th>Hành động</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${#lists.isEmpty(doctors)}">
+        <td colspan="9">Không có dữ liệu</td>
+    </tr>
+    <tr th:each="doctor : ${doctors}">
+        <td th:text="${doctor.id}"></td>
+        <td>
+            <img th:if="${doctor.urlImage != null && doctor.urlImage != ''}"
+                 th:src="@{'/images/' + ${doctor.urlImage}}"
+                 alt="avatar">
+            <span th:if="${doctor.urlImage == null || doctor.urlImage == ''}">Chưa có ảnh</span>
+        </td>
+        <td th:text="${doctor.fullName}"></td>
+        <td th:text="${doctor.department}"></td>
+        <td th:text="${doctor.experiYear}"></td>
+        <td th:text="${doctor.phone}"></td>
+        <td th:text="${doctor.address}"></td>
+        <td th:text="${doctor.dateWork != null ? #dates.format(doctor.dateWork, 'dd/MM/yyyy') : ''}"></td>
+        <td>
+            <a class="edit-btn" th:href="@{'/doctors/edit/' + ${doctor.id}}">Sửa</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

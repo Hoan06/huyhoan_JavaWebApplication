@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Danh sach nhan vien</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container mt-4">
+    <div th:if="${employees.size() == 0}">
+        <h4 class="text-danger">Chưa có nhân viên nào!</h4>
+    </div>
+
+    <a th:href="@{/employees/add-employee}">Thêm mới</a>
+
+    <h1>Danh sách nhân viên</h1>
+
+    <table class="table table-bordered table-striped" th:if="${employees.size() > 0}">
+        <thead>
+        <tr>
+            <th>STT</th>
+            <th>Mã nhân viên</th>
+            <th>Họ tên</th>
+            <th>Giới tính</th>
+            <th>Ngày sinh</th>
+            <th>Quê quán</th>
+            <th>Công ty</th>
+            <th>Lương</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="e, stat : ${employees}">
+            <td th:text="${stat.count}"></td>
+            <td th:text="${e.empId}"></td>
+            <td th:text="${e.empName}"></td>
+            <td th:text="${e.gender ? 'Nam' : 'Nu'}"></td>
+            <td th:text="${e.birthDate}"></td>
+            <td th:text="${e.address}"></td>
+            <td th:text="${e.company}"></td>
+            <td th:text="${e.salary}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

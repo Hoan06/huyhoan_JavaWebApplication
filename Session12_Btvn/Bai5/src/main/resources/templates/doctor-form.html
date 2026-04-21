@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${pageTitle}"></title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      margin: 30px;
+    }
+    .container {
+      width: 700px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+    }
+    h2 {
+      color: #0b5394;
+      margin-bottom: 20px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+    .error {
+      color: red;
+      font-size: 14px;
+    }
+    .actions {
+      margin-top: 20px;
+      display: flex;
+      gap: 10px;
+    }
+    button, a {
+      padding: 10px 16px;
+      border: none;
+      border-radius: 6px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    button {
+      background: #0b5394;
+      color: white;
+    }
+    a {
+      background: #6c757d;
+      color: white;
+    }
+    img {
+      margin-top: 10px;
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2 th:text="${pageTitle}"></h2>
+
+  <form th:action="@{${action}}" th:object="${doctor}" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+      <label>Tên bác sĩ</label>
+      <input type="text" th:field="*{fullName}">
+      <p class="error" th:errors="*{fullName}"></p>
+    </div>
+
+    <div class="form-group">
+      <label>Chuyên khoa</label>
+      <input type="text" th:field="*{department}">
+      <p class="error" th:errors="*{department}"></p>
+    </div>
+
+    <div class="form-group">
+      <label>Năm kinh nghiệm</label>
+      <input type="number" th:field="*{experiYear}">
+      <p class="error" th:errors="*{experiYear}"></p>
+    </div>
+
+    <div class="form-group">
+      <label>Số điện thoại</label>
+      <input type="text" th:field="*{phone}">
+      <p class="error" th:errors="*{phone}"></p>
+    </div>
+
+    <div class="form-group">
+      <label>Địa chỉ</label>
+      <input type="text" th:field="*{address}">
+      <p class="error" th:errors="*{address}"></p>
+    </div>
+
+    <div class="form-group">
+      <label>Ngày vào làm việc</label>
+      <input type="date" name="dateWork"
+             th:value="${doctor.dateWork != null ? #dates.format(doctor.dateWork, 'yyyy-MM-dd') : ''}">
+    </div>
+
+    <div class="form-group">
+      <label>Ảnh đại diện</label>
+      <input type="file" th:field="*{image}" accept="image/*">
+      <div th:if="${oldImage != null && oldImage != ''}">
+        <p>Ảnh hiện tại:</p>
+        <img th:src="@{'/images/' + ${oldImage}}" alt="avatar">
+      </div>
+    </div>
+
+    <div class="actions">
+      <button type="submit">Lưu</button>
+      <a th:href="@{/doctors}">Quay lại</a>
+    </div>
+  </form>
+</div>
+</body>
+</html>

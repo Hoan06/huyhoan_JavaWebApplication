@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Danh sách khóa học</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container">
+    <div class="text-center" style="margin-bottom: 20px">
+        <h2 style="color: yellow">Danh sách khóa học</h2>
+    </div>
+    <div style="display: flex ; margin-bottom: 20px" >
+        <form th:action="@{/search}" method="get" style="margin-right: 60%">
+            <input type="text" name="keyword" placeholder="Tìm kiếm ....">
+            <button type="submit">Tìm kiếm</button>
+        </form>
+        <button class="btn btn-primary">
+            <a style="color: aliceblue" th:href="@{/add}">Thêm mới khóa học</a>
+        </button>
+    </div>
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>Mã khóa học</th>
+            <th>Tên khóa học</th>
+            <th>Giảng viên phụ trách</th>
+            <th>Thời lượng</th>
+            <th>Ảnh</th>
+            <th>Hành động</th>
+        </tr>
+        <tr th:each="c : ${courses}">
+            <td th:text="${c.id}"></td>
+            <td th:text="${c.courseName}"></td>
+            <td th:text="${c.instructor}"></td>
+            <td th:text="${c.duration}"></td>
+            <td>
+                <img th:src="@{|/resources/images/${c.getThumbnail()}|}" style="width: 50px" alt="No img">
+            </td>
+            <td>
+                <a th:href="@{/update/{id}(id=${c.id})}">Cập nhật</a>
+                <a th:href="@{/delete/{id}(id=${c.id})}"
+                   onclick="return confirm('Bạn có chắc chắn muốn xóa không ?')">Xóa</a>
+            </td>
+        </tr>
+    </table>
+    <h4 th:if="${courses.isEmpty()}">Chưa có khóa học nào trong hệ thống.</h4>
+</div>
+
+</body>
+</html>

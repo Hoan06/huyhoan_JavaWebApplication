@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm nhân viên</title>
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+</head>
+<body>
+
+<h2>Thêm nhân viên</h2>
+
+<form th:action="@{/employees/add-employee}" method="post" th:object="${employee}">
+    <div>
+        <label>Tên nhân viên:</label>
+        <input type="text" th:field="*{empName}">
+    </div>
+    <br>
+    <div>
+        <label>Giới tính:</label>
+        <input type="radio" th:field="*{gender}" value="true"> Nam
+        <input type="radio" th:field="*{gender}" value="false"> Nữ
+    </div>
+    <br>
+    <div>
+        <label>Ngày sinh:</label>
+        <input type="date" th:field="*{birthDate}">
+    </div>
+    <br>
+    <div>
+        <label>Địa chỉ:</label>
+        <input type="text" th:field="*{address}">
+    </div>
+    <br>
+    <div>
+        <label>Công ty:</label>
+        <input type="text" th:field="*{company}">
+    </div>
+    <br>
+    <div>
+        <label>Lương:</label>
+        <input type="number" step="0.01" th:field="*{salary}">
+    </div>
+    <br>
+
+    <button type="submit">Thêm nhân viên</button>
+
+</form>
+
+<br>
+<a th:href="@{/employees}">Quay lại</a>
+
+</body>
+</html>
