@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Thêm Đơn Thuốc Mới</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+  <h2 class="text-primary">Đăng Ký Đơn Thuốc Mới</h2>
+  <hr>
+
+  <form th:action="@{/prescriptions/add}" th:object="${prescription}" method="post">
+    <div class="row">
+      <div class="col-md-6 form-group">
+        <label>Mã bệnh nhân:</label>
+        <input type="text" th:field="*{patientCode}" class="form-control" placeholder="VD: BN001">
+        <small class="text-danger" th:if="${#fields.hasErrors('patientCode')}" th:errors="*{patientCode}"></small>
+      </div>
+      <div class="col-md-6 form-group">
+        <label>Tên bệnh nhân:</label>
+        <input type="text" th:field="*{patientName}" class="form-control">
+      </div>
+    </div>
+
+    <h4 class="mt-4">Chi tiết thuốc</h4>
+    <table class="table table-sm" id="medicineTable">
+      <thead>
+      <tr>
+        <th>Tên thuốc</th>
+        <th style="width: 150px;">Số lượng</th>
+        <th>Thao tác</th>
+      </tr>
+      </thead>
+      <tbody id="medicineBody">
+      <tr>
+        <td><input type="text" name="details[0].medicineName" class="form-control" required></td>
+        <td>
+          <input type="number" name="details[0].quantity" class="form-control" min="1" value="1">
+        </td>
+        <td><button type="button" class="btn btn-danger btn-sm" onclick="removeRow(this)">Xóa</button></td>
+      </tr>
+      </tbody>
+    </table>
+
+    <button type="button" class="btn btn-info mb-3" onclick="addRow()">+ Thêm thuốc vào danh sách</button>
+    <hr>
+    <div class="text-right">
+      <a th:href="@{/prescriptions}" class="btn btn-secondary">Quay lại</a>
+      <button type="submit" class="btn btn-success">Lưu Đơn Thuốc</button>
+    </div>
+  </form>
+</div>
+
+<script>
+  let rowIdx = 1;
+  function addRow() {
+    let html = `<tr>
+            <td><input type="text" name="details[${rowIdx}].medicineName" class="form-control" required></td>
+            <td><input type="number" name="details[${rowIdx}].quantity" class="form-control" min="1" value="1"></td>
+            <td><button type="button" class="btn btn-danger btn-sm" onclick="removeRow(this)">Xóa</button></td>
+        </tr>`;
+    document.getElementById('medicineBody').insertAdjacentHTML('beforeend', html);
+    rowIdx++;
+  }
+  function removeRow(btn) {
+    btn.closest('tr').remove();
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container mt-4">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+        <a class="navbar-brand" href="#">Quản lý Đơn Thuốc</a>
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" th:href="@{/prescriptions}">Danh sách</a>
+            <a class="nav-item nav-link" th:href="@{/prescriptions/add}">Thêm mới</a>
+        </div>
+    </nav>
+
+    <form class="form-inline mb-3" method="get" th:action="@{/prescriptions}">
+        <input name="search" class="form-control mr-sm-2" type="search" placeholder="Nhập mã bệnh nhân...">
+        <button class="btn btn-outline-success" type="submit">Tìm kiếm</button>
+    </form>
+
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th>Mã BN</th>
+            <th>Tên bệnh nhân</th>
+            <th>Ngày kê</th>
+            <th>Chi tiết thuốc</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="p : ${prescriptions}">
+            <td th:text="${p.patientCode}"></td>
+            <td th:text="${p.patientName}"></td>
+            <td th:text="${#temporals.format(p.createdDate, 'dd-MM-yyyy HH:mm')}"></td>
+            <td>
+                <ul>
+                    <li th:each="d : ${p.details}" th:text="${d.medicineName} + ' - SL: ' + ${d.quantity}"></li>
+                </ul>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

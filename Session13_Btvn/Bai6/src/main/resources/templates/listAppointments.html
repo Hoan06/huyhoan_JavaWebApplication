@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container mt-4">
+    <h2>Danh sách chờ khám</h2>
+
+    <form th:action="@{/add}" th:object="${appointment}" method="post" class="mb-4">
+        <input type="text" th:field="*{patientName}" placeholder="Tên bệnh nhân" class="form-control mb-2">
+
+        <input type="time" th:field="*{appointmentTime}" class="form-control mb-2">
+        <button type="submit" class="btn btn-primary">Đăng ký</button>
+    </form>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Giờ khám</th>
+            <th>Tên bệnh nhân</th>
+            <th>SĐT</th>
+            <th>Trạng thái</th>
+            <th>Hành động</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="ap : ${appointments}">
+            <td th:text="${ap.appointmentTime}"></td>
+            <td th:text="${ap.patientName}"></td>
+            <td th:text="${ap.phoneNumber}"></td>
+            <td th:text="${ap.status} == 0 ? 'Đang chờ' : 'Đang khám'"></td>
+            <td>
+                <a th:href="@{/call/{id}(id=${ap.id})}" class="btn btn-success btn-sm">Gọi khám</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
