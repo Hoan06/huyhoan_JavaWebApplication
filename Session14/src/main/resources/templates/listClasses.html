@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+
+    <div class="container">
+        <a th:href="@{/students/add}">Thêm mới sinh viên</a>
+        <h1>Danh sách lớp học - sinh viên</h1>
+        <div th:each="c : ${classes}">
+            <div th:if="${c.students.size() > 0}">
+                <h3>Lớp- <span th:text="${c.className}"></span></h3>
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>Số thứ tự</th>
+                        <th>Mã sinh viên</th>
+                        <th>Họ tên</th>
+                        <th>Giới tính</th>
+                        <th>Ngày sinh</th>
+                        <th>Quê quán</th>
+                        <th>Lớp</th>
+                    </tr>
+                    <tr th:each="s,index : ${c.students}">
+                        <td th:text="${index.count}"></td>
+                        <td th:text="${s.stuId}"></td>
+                        <td th:text="${s.fullName}"></td>
+                        <td th:text="${s.gender ? 'Nam' : 'Nữ'}"></td>
+                        <td th:text="${#dates.format(s.birthday,'dd/MM/yyyy')}"></td>
+                        <td th:text="${s.address}"></td>
+                        <td th:text="${c.className}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

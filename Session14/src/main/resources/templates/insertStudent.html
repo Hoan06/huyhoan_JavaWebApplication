@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Thêm mới sinh viên</h1>
+        <form th:action="@{/students/add}" method="post" th:object="${student}">
+            <div class="form-group">
+                <label for="fullname">Họ tên : </label>
+                <input type="text" id="fullname" th:field="*{fullName}" class="form-control">
+            </div>
+            <div class="form-group">
+                <label >Giới tính : </label>
+                <input type="radio" th:field="*{gender}" value="true"> Nam
+                <input type="radio" th:field="*{gender}" value="false"> Nữ
+            </div>
+            <div class="form-group">
+                <label for="birthday">Ngày sinh : </label>
+                <input type="date" id="birthday" th:field="*{birthday}" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="address">Quê quán : </label>
+                <input type="text" id="address" th:field="*{address}" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="classes">Lớp học : </label>
+                <select id="classes" th:field="*{classes.clasId}" class="form-control">
+                    <option value="">---Chọn lớp học---</option>
+                    <option th:each="c :${listClasses}" th:text="${c.className}" th:value="${c.clasId}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="reset" class="btn btn-secondary">Reset</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
