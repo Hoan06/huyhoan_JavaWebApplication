@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+
+    <div class="container">
+        <h1><a th:href="@{/todos/add}">Thêm mới công việc</a></h1>
+        <h1>Danh sách công việc</h1>
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>Mã công việc</th>
+                <th>Nội dung</th>
+                <th>Ngày</th>
+                <th>Trạng thái</th>
+                <th>Độ ưu tiên</th>
+            </tr>
+            <tr th:each="t :${todos}">
+                <td th:text="${t.todoId}"></td>
+                <td th:text="${t.content}"></td>
+                <td th:text="${#dates.format(t.dueDate , 'dd/MM/yyyy')}"></td>
+                <td th:text="${t.status ? 'Sẵn sàng' : 'Đang chờ'}"></td>
+                <td th:text="${t.priority}"></td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table>
+    <tr th:each="order : ${orders}">
+        <td th:text="${order.id}"></td>
+        <td th:text="${#temporals.format(order.createdAt, 'dd-MM-yyyy HH:mm')}"></td>
+        <td th:text="${order.totalPrice}"></td>
+        <td th:text="${order.status}"></td>
+    </tr>
+</table>
+
+<div class="pagination">
+    <a th:if="${currentPage > 0}"
+       th:href="@{/history(page=${currentPage - 1}, status=${status}, sortBy=${sortBy})}">Trước</a>
+
+    <span th:text="'Trang ' + (${currentPage} + 1) + ' / ' + ${totalPages}"></span>
+
+    <a th:if="${currentPage < totalPages - 1}"
+       th:href="@{/history(page=${currentPage + 1}, status=${status}, sortBy=${sortBy})}">Sau</a>
+</div>
+
+</body>
+</html>
